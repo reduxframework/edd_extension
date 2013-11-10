@@ -50,8 +50,6 @@ if( !class_exists( 'ReduxFramework_extension_edd' ) ) {
        */
       public function __construct( $parent ) {
 
-        global $pagenow;
-
         if ( empty( $this->dir ) ) {
           $this->dir = trailingslashit( str_replace( '\\', '/', dirname( __FILE__ ) ) );
           $this->url = site_url( str_replace( trailingslashit( str_replace( '\\', '/', ABSPATH ) ), '', $this->dir ) );
@@ -103,6 +101,7 @@ if( !class_exists( 'ReduxFramework_extension_edd' ) ) {
       }
 
       function ajax_verify_license() {
+        print_r($_POST);
         echo "Ajax worked!";
       }
 

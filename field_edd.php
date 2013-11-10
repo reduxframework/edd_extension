@@ -64,8 +64,16 @@ if( !class_exists( 'ReduxFramework_edd' ) ) {
 		 */
 		public function render() {
 
-			echo '<input data-id="'.$this->field['id'].'" name="' . $this->args['opt_name'] . '[' . $this->field['id'] . ']" id="' . $this->field['id'] . '-edd" class="redux-edd ' . $this->field['class'] . '"  type="text" value="' . $this->value . '" " />'; 
-			echo '<a href="#" class="button button-primary redux-verifyEDD">Verify License</a>';
+			$defaults = array(
+				'key' 		=> '',
+				'status' 	=> '',
+			);
+
+			$this->value = wp_parse_args( $this->value, $defaults );     
+
+			echo '<input data-id="'.$this->field['id'].'" name="' . $this->args['opt_name'] . '[' . $this->field['id'] . ']" id="' . $this->field['id'] . '-key" class="redux-edd ' . $this->field['class'] . '"  type="text" value="' . $this->value['key'] . '" " />'; 
+			echo '<input type="hidden" data-id="'.$this->field['id'].'" id="' . $this->field['id'] . '-status" class="redux-edd ' . $this->field['class'] . '"  type="text" value="' . $this->value['status'] . '" " />'; 
+			echo '&nbsp; <a href="#" class="button button-primary redux-verifyEDD">Verify License</a>';
 			if (isset($this->parent->args['edd'])) {
 				foreach( $this->parent->args['edd'] as $k => $v ) {
 					echo '<input type="hidden" data-id="'.$this->field['id'].'" id="' . $this->field['id'] . '-'.$k.'" class="redux-edd edd-'.$k.'"  type="text" value="' . $v . '" " />';
@@ -84,8 +92,6 @@ if( !class_exists( 'ReduxFramework_edd' ) ) {
 		 * @return		void
 		 */
 		public function enqueue() {
-
-			
 
 			wp_enqueue_script(
 				'redux-field-edd-js', 
